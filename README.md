@@ -1,20 +1,59 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# sebamaster-movie-backend application
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+sebamaster-movie-frontend application can be found [here](https://github.com/sebischair/sebamaster-movie-frontend)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Prerequisites
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Both for the back end and front end application check
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+* nodejs [official website](https://nodejs.org/en/) - nodejs includes [npm](https://www.npmjs.com/) (node package manager)
+
+Just for the backend application:
+
+* mongodb [official installation guide](https://docs.mongodb.org/manual/administration/install-community/)
+
+## Setup (before first run)
+
+Go to your project root folder via command line
+```
+cd path/to/workspace/sebamaster-movie-backend
+```
+
+**Install node dependencies**
+
+```
+npm install
+```
+
+**Set up your database**
+
+* Create a new directory where your database will be stored (it's a good idea to separate data and business logic - the data directory should be on a different place than your app)
+* Start the database server
+```
+mongod --dbpath relative/path/to/database
+```
+* Create all database schemes and import data to begin with
+```
+mongorestore dump/
+```
+
+**Set the environment variables**
+
+This variables are based in your local configuration
+```bash
+export PORT=3000
+export MONGODB_URI="mongodb://localhost:27017/moviedb"
+export JWT_SECRET="very secret secret"
+```
+
+## Start the project
+
+**Development environment**
+```bash
+npm run devstart
+```
+
+**Production environment**
+```bash
+npm start
+```
