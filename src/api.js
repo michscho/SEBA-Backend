@@ -1,5 +1,5 @@
 "use strict";
-
+import SwaggerUI from 'swagger-ui'
 const express    = require('express');
 const bodyParser = require('body-parser');
 const helmet     = require('helmet');
