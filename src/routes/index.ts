@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', (req: express.Request, res: express.Response) => {
     res.json({
-        name: 'SEBA Master Movie Backend'
+        name: 'Learn More Backend'
     });
 });
 

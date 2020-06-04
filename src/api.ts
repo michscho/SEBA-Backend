@@ -4,7 +4,7 @@ const express    = require('express');
 const bodyParser = require('body-parser');
 const helmet     = require('helmet');
 
-const middlewares = require('./middlewares');
+const middlewares = require('./middleware');
 
 //const auth  = require('./routes/auth');
 //const movie = require('./routes/movie');

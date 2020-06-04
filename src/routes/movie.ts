@@ -3,7 +3,7 @@ export {};
 const express  = require('express');
 const router   = express.Router();
 
-const middlewares    = require('../middlewares');
+const middlewares    = require('../middleware');
 const MovieController = require('../controllers/movie');
 
 
