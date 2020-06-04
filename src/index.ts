@@ -1,7 +1,6 @@
 "use strict";
 
 const http       = require('http');
-const mongoose   = require('mongoose');
 
 const api        = require('./api');
 const config     = require('./config');
@@ -13,15 +12,6 @@ api.set('port', config.port);
 //Create a http server based on Express
 const server = http.createServer(api);
 
-
-//Connect to the MongoDB database; then start the server
-mongoose
-    .connect(config.mongoURI)
-    .then(() => server.listen(config.port))
-    .catch(err => {
-        console.log('Error connecting to the database', err.message);
-        process.exit(err.statusCode);
-    });
 
 
 server.on('listening', () => {

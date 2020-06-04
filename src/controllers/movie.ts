@@ -1,9 +1,10 @@
 "use strict";
 
-const MovieModel = require('../models/movie');
+//const MovieModel = require('../models/movie');
 
 
 const create = async (req, res) => {
+    /*
     if (Object.keys(req.body).length === 0) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body is empty'
@@ -19,9 +20,12 @@ const create = async (req, res) => {
         message: err.message
       });
     }
+    */
+
 };
 
 const read = async (req, res) => {
+    /*
   try {
     let movie = await MovieModel.findById(req.params.id).exec();
 
@@ -37,9 +41,12 @@ const read = async (req, res) => {
       message: err.message
     });
   }
+
+     */
 };
 
 const update = async (req, res) => {
+    /*
     if (Object.keys(req.body).length === 0) {
         return res.status(400).json({
             error: 'Bad Request',
@@ -60,9 +67,12 @@ const update = async (req, res) => {
         message: err.message
       });
     }
+
+     */
 };
 
 const remove = async (req, res) => {
+    /*
   try {
     await MovieModel.findByIdAndRemove(req.params.id).exec();
 
@@ -73,9 +83,12 @@ const remove = async (req, res) => {
       message: err.message
     });
   }
+
+     */
 };
 
 const list  = async (req, res) => {
+    /*
   try {
     let movies = await MovieModel.find({}).exec();
 
@@ -86,6 +99,8 @@ const list  = async (req, res) => {
       message: err.message
     });
   }
+
+     */
 };
 
 

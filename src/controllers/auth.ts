@@ -3,11 +3,12 @@ export {};
 const jwt        = require('jsonwebtoken');
 const bcrypt     = require('bcryptjs');
 
-const config     = require('../config');
-const UserModel  = require('../models/user');
+//const config     = require('../config');
+//const UserModel  = require('../models/user');
 
 
 const login = async (req,res) => {
+    /*
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body must contain a password property'
@@ -38,10 +39,13 @@ const login = async (req,res) => {
             message: err.message
         });
     }
+
+     */
 };
 
 
 const register = async (req,res) => {
+    /*
     if (!Object.prototype.hasOwnProperty.call(req.body, 'password')) return res.status(400).json({
         error: 'Bad Request',
         message: 'The request body must contain a password property'
@@ -77,10 +81,13 @@ const register = async (req,res) => {
             });
         }
     }
+
+     */
 };
 
 
 const me = async (req, res) => {
+    /*
     try {
         let user = await UserModel.findById(req.userId).select('username').exec();
 
@@ -96,10 +103,12 @@ const me = async (req, res) => {
             message: err.message
         });
     }
+
+     */
 };
 
 const logout = (req, res) => {
-    res.status(200).send({ token: null });
+    //res.status(200).send({ token: null });
 };
 
 
