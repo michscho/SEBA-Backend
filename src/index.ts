@@ -3,8 +3,8 @@
 const http       = require('http');
 const mongoose   = require('mongoose');
 
-const api        = require('./src/api');
-const config     = require('./src/config');
+const api        = require('./api');
+const config     = require('./config');
 
 
 // Set the port to the API.
