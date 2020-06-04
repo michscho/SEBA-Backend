@@ -4,16 +4,26 @@
     "password": "W2JBpKg11LiPHmB026Em",
     "database": "db",
     "host": "seba.database.windows.net",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mssql",
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "options": {
+        "encrypt": true
+      }
+    }
   },
   "test": {
     "username": "devadmin",
     "password": "W2JBpKg11LiPHmB026Em",
     "database": "db",
     "host": "seba.database.windows.net",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mssql",
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "options": {
+        "encrypt": true
+      }
+    }
   },
   "production": {
     "username": "devadmin",
@@ -21,6 +31,11 @@
     "database": "db",
     "host": "seba.database.windows.net",
     "dialect": "mssql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "dialectOptions": {
+      "options": {
+        "encrypt": true
+      }
+    }
   }
 }
