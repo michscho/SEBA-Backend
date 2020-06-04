@@ -2,6 +2,25 @@
 
 //const MovieModel = require('../models/movie');
 
+const list  = async (req, res) => {
+    res.json({
+        name: 'All movies'
+    });
+    /*
+  try {
+    let movies = await MovieModel.find({}).exec();
+
+    return res.status(200).json(movies);
+  } catch(err) {
+    return res.status(500).json({
+      error: 'Internal server error',
+      message: err.message
+    });
+  }
+
+     */
+};
+
 
 const create = async (req, res) => {
     /*
@@ -87,21 +106,7 @@ const remove = async (req, res) => {
      */
 };
 
-const list  = async (req, res) => {
-    /*
-  try {
-    let movies = await MovieModel.find({}).exec();
 
-    return res.status(200).json(movies);
-  } catch(err) {
-    return res.status(500).json({
-      error: 'Internal server error',
-      message: err.message
-    });
-  }
-
-     */
-};
 
 
 module.exports = {

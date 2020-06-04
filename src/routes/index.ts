@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', (req: express.Request, res: express.Response) => {
     res.json({
-        name: 'Learn More Backend'
+        name: 'Learnmore Backend'
     });
 });
 

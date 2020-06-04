@@ -1,15 +1,16 @@
 import express = require('express');
 import path = require('path');
-import routes from './routes/index';
+import index from './routes/index';
 
 const middleware = require('./middleware');
 const bodyParser = require('body-parser');
 const helmet     = require('helmet');
 const config     = require('./config');
-//const auth  = require('./routes/auth');
-//const movie = require('./routes/movie');
+const authentication  = require('./routes/authentication');
+const course = require('./routes/course');
 const app = express();
 
+// Middleware
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,9 +18,9 @@ app.use(middleware.allowCrossDomain);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-//api.use('/auth'  , auth);
-//api.use('/movies', movie);
+app.use('/', index);
+app.use('/authentication'  , authentication);
+app.use('/course', course);
 
 app.set('port', process.env.PORT || config.port);
 
