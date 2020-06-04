@@ -6,7 +6,7 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "start": "node build/app",
-    "dev": "nodemon build/app"
+    "dev": "tsc --build && nodemon build/app"
   },
   "description": "Backend",
   "author": {

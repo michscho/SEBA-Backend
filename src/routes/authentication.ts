@@ -6,7 +6,12 @@ const router = express.Router();
 const middleware = require('../middleware');
 const AuthenticationController = require('../controllers/authenticationController');
 
-
+/**
+ * @swagger
+ * /authentication/login:
+ *   post:
+ *     description: Log In
+ */
 router.post('/login', AuthenticationController.login);
 router.post('/register', AuthenticationController.register);
 router.get('/me', middleware.checkAuthentication , AuthenticationController.me);
