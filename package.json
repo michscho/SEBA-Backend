@@ -5,13 +5,16 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "start": "node build/app"
+    "start": "node build/app",
+    "dev": "nodemon build/app"
   },
   "description": "Backend",
   "author": {
     "name": ""
   },
   "dependencies": {
+    "swagger-ui-express": "^4.1.4",
+    "swagger-jsdoc": "^4.0.0",
     "awesome-typescript-loader": "^5.2.1",
     "readable-stream": "^2.3.6",
     "bcryptjs": "2.4.3",
@@ -27,6 +30,7 @@
     "typescript": "^3.9.3"
   },
   "devDependencies": {
+    "nodemon": "^2.0.4",
     "@types/readable-stream": "^2.3.6",
     "@types/express-serve-static-core": "^4.0.50",
     "@types/mssql": "^6.0.1",
