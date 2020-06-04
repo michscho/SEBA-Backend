@@ -3,7 +3,7 @@ export {};
 const jwt        = require('jsonwebtoken');
 const bcrypt     = require('bcryptjs');
 
-//const config     = require('../config');
+const config     = require('../config');
 //const UserModel  = require('../models/user');
 
 

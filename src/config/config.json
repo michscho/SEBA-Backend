@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "devadmin",
+    "password": "W2JBpKg11LiPHmB026Em",
+    "database": "db",
+    "host": "seba.database.windows.net",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "devadmin",
+    "password": "W2JBpKg11LiPHmB026Em",
+    "database": "db",
+    "host": "seba.database.windows.net",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "devadmin",
+    "password": "W2JBpKg11LiPHmB026Em",
+    "database": "db",
+    "host": "seba.database.windows.net",
+    "dialect": "mssql",
+    "operatorsAliases": false
+  }
+}
