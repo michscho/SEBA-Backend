@@ -1,13 +1,18 @@
 "use strict";
 
-// Configuration variables
-const port      = process.env.PORT        || '3000';
-const mongoURI  = process.env.MONGODB_URI || 'mongodb://localhost:27017/moviedb';
-const JwtSecret = process.env.JWT_SECRET  || 'very secret secret';
-
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://test-user:P87NxEqEXs3TcIMR@sandbox-mmakc.mongodb.net/KnowMoreDB?retryWrites=true&w=majority"
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("KnowMoreDB").collection("UserProfile").find( {
+        'nickname': 'nolimimer'
+    }).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+    });;
+});
 
 module.exports = {
-    port,
-    mongoURI,
-    JwtSecret,
+    uri,
+    client
 };
