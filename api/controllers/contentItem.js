@@ -71,7 +71,7 @@ exports.contentItems_create_contentItem = (req, res, next) => {
 };
 
 exports.contentItems_get_contentItem = (req, res, next) => {
-  const id = req.params.userId;
+  const id = req.params.contentItemId;
   Content_Item.findById(id)
     .select("_id name source author isFree price")
     .exec()
@@ -97,49 +97,48 @@ exports.contentItems_get_contentItem = (req, res, next) => {
     });
 };
 
-// exports.products_update_product = (req, res, next) => {
-//   const id = req.params.productId;
-//   const updateOps = {};
-//   for (const ops of req.body) {
-//     updateOps[ops.propName] = ops.value;
-//   }
-//   Product.update({ _id: id }, { $set: updateOps })
-//     .exec()
-//     .then(result => {
-//       res.status(200).json({
-//         message: "Product updated",
-//         request: {
-//           type: "GET",
-//           url: "http://localhost:3000/products/" + id
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// };
-// //
-// exports.products_delete = (req, res, next) => {
-//   const id = req.params.productId;
-//   Product.remove({ _id: id })
-//     .exec()
-//     .then(result => {
-//       res.status(200).json({
-//         message: "Product deleted",
-//         request: {
-//           type: "POST",
-//           url: "http://localhost:3000/products",
-//           body: { name: "String", price: "Number" }
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// };
+exports.contentItems_update_contentItem = (req, res, next) => {
+  const id = req.params.contentItemId;
+  const updateOps = {};
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+  Content_Item.update({ _id: id }, { $set: updateOps })
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "Product updated",
+        request: {
+          type: "GET",
+          url: "http://localhost:9000/contentItems/" + id
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
+exports.contentItems_delete = (req, res, next) => {
+  const id = req.params.contentItemId;
+  Content_Item.remove({ _id: id })
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "ContentItem deleted",
+        request: {
+          type: "POST",
+          url: "http://localhost:3000/contentitems",
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};

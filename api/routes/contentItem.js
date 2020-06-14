@@ -34,7 +34,12 @@ router.get("/", ContentItemController.contentItems_get_all);
 
 router.post("/", ContentItemController.contentItems_create_contentItem);
 
-router.get("/:userId", ContentItemController.contentItems_get_contentItem);
+router.get("/:contentItemId", ContentItemController.contentItems_get_contentItem);
+
+router.patch("/:contentItemId", ContentItemController.contentItems_update_contentItem);
+
+router.delete("/:contentItemId", ContentItemController.contentItems_delete);
+
 
 
 // // router.post("/", checkAuth, upload.single('productImage'), ProductsController.products_create_product);
