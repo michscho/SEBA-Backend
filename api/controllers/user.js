@@ -22,7 +22,12 @@ exports.user_signup = (req, res, next) => {
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
               email: req.body.email,
-              password: hash
+              password: hash,
+              prename: req.body.prename,
+              surname:  req.body.surname,
+              achievment:  req.body.achievment || undefined,
+              courses:  req.body.courses || undefined,
+              topics:  req.body.topics || undefined,
             });
             user
               .save()
