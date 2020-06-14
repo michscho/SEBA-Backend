@@ -1,31 +1,27 @@
 {
-  "name": "sebamaster-movie-backend",
+  "name": "KnowMore",
   "version": "1.0.0",
-  "description": "EBAMaster movie backend as a service",
+  "description": "SEBA Master",
   "main": "index.js",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sebischair/sebamaster-movie-backend.git"
-  },
-  "author": "sebischair",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sebischair/sebamaster-movie-backend/issues"
-  },
-  "homepage": "ttps://github.com/sebischair/sebamaster-movie-backend.git#readme",
   "scripts": {
-    "start": "node ./index.js",
-    "devstart": "nodemon ./index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "SEBA-Backend",
+  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
-    "mongodb": "^3.5.8"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
