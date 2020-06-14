@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Content_Item = require("../models/contentItem");
 
-/*exports.contentItems_get_all = (req, res, next) => {
+exports.contentItems_get_all = (req, res, next) => {
   Content_Item.find()
     .select("_id name source author isFree price")
       .exec()
@@ -31,7 +31,7 @@ const Content_Item = require("../models/contentItem");
         error: err
       });
     });
-};*/
+};
 
 exports.contentItems_create_contentItem = (req, res, next) => {
   const contentItem = new Content_Item({
@@ -69,34 +69,34 @@ exports.contentItems_create_contentItem = (req, res, next) => {
       });
     });
 };
-//
-// exports.products_get_product = (req, res, next) => {
-//   const id = req.params.productId;
-//   Product.findById(id)
-//     .select("name price _id productImage")
-//     .exec()
-//     .then(doc => {
-//       console.log("From database", doc);
-//       if (doc) {
-//         res.status(200).json({
-//           product: doc,
-//           request: {
-//             type: "GET",
-//             url: "http://localhost:3000/products"
-//           }
-//         });
-//       } else {
-//         res
-//           .status(404)
-//           .json({ message: "No valid entry found for provided ID" });
-//       }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ error: err });
-//     });
-// };
-//
+
+exports.contentItems_get_contentItem = (req, res, next) => {
+  const id = req.params.userId;
+  Content_Item.findById(id)
+    .select("_id name source author isFree price")
+    .exec()
+    .then(doc => {
+      console.log("From database", doc);
+      if (doc) {
+        res.status(200).json({
+          contentItem: doc,
+          request: {
+            type: "GET",
+            url: "http://localhost:9000/contentItems"
+          }
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "No valid entry found for provided ID" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
 // exports.products_update_product = (req, res, next) => {
 //   const id = req.params.productId;
 //   const updateOps = {};
@@ -121,7 +121,7 @@ exports.contentItems_create_contentItem = (req, res, next) => {
 //       });
 //     });
 // };
-//
+// //
 // exports.products_delete = (req, res, next) => {
 //   const id = req.params.productId;
 //   Product.remove({ _id: id })

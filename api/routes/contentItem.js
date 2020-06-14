@@ -30,15 +30,16 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// router.get("/", ContentItemController.contentItems_get_all);
+router.get("/", ContentItemController.contentItems_get_all);
 
 router.post("/", ContentItemController.contentItems_create_contentItem);
+
+router.get("/:userId", ContentItemController.contentItems_get_contentItem);
 
 
 // // router.post("/", checkAuth, upload.single('productImage'), ProductsController.products_create_product);
 // router.post("/", checkAuth, ProductsController.products_create_product);
 //
-// router.get("/:productId", ProductsController.products_get_product);
 //
 // router.patch("/:productId", checkAuth, ProductsController.products_update_product);
 //
