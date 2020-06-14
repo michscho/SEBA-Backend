@@ -40,14 +40,4 @@ router.patch("/:contentItemId", ContentItemController.contentItems_update_conten
 
 router.delete("/:contentItemId", ContentItemController.contentItems_delete);
 
-
-
-// // router.post("/", checkAuth, upload.single('productImage'), ProductsController.products_create_product);
-// router.post("/", checkAuth, ProductsController.products_create_product);
-//
-//
-// router.patch("/:productId", checkAuth, ProductsController.products_update_product);
-//
-// router.delete("/:productId", checkAuth, ProductsController.products_delete);
-
 module.exports = router;
