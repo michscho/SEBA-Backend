@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const Order = require("../models/course");
+const Orders = require("../models/course");
 const Product = require("../models/contentItem");
 
 exports.orders_get_all = (req, res, next) => {
-  Order.find()
+  Orders.find()
     .select("product quantity _id")
     .populate("product", "name")
     .exec()
@@ -39,7 +39,7 @@ exports.orders_create_order = (req, res, next) => {
           message: "Product not found"
         });
       }
-      const order = new Order({
+      const order = new Orders({
         _id: mongoose.Types.ObjectId(),
         quantity: req.body.quantity,
         product: req.body.productId
@@ -49,7 +49,7 @@ exports.orders_create_order = (req, res, next) => {
     .then(result => {
       console.log(result);
       res.status(201).json({
-        message: "Order stored",
+        message: "Orders stored",
         createdOrder: {
           _id: result._id,
           product: result.product,
@@ -70,13 +70,13 @@ exports.orders_create_order = (req, res, next) => {
 };
 
 exports.orders_get_order = (req, res, next) => {
-  Order.findById(req.params.orderId)
+  Orders.findById(req.params.orderId)
     .populate("product")
     .exec()
     .then(order => {
       if (!order) {
         return res.status(404).json({
-          message: "Order not found"
+          message: "Orders not found"
         });
       }
       res.status(200).json({
@@ -95,11 +95,11 @@ exports.orders_get_order = (req, res, next) => {
 };
 
 exports.orders_delete_order = (req, res, next) => {
-  Order.remove({ _id: req.params.orderId })
+  Orders.remove({ _id: req.params.orderId })
     .exec()
     .then(result => {
       res.status(200).json({
-        message: "Order deleted",
+        message: "Orders deleted",
         request: {
           type: "POST",
           url: "http://localhost:3000/orders",
