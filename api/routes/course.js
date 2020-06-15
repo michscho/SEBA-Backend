@@ -30,9 +30,9 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-router.get("/", CourseController.course_get_all);
+router.get("/", CourseController.courses_get_all);
 
-router.post("/", CourseController.contentItems_create_contentItem);
+router.post("/", CourseController.create_course);
 
 router.get("/:courseId", CourseController.contentItems_get_contentItem);
 

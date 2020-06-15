@@ -35,43 +35,49 @@ exports.courses_get_all = (req, res, next) => {
             });
         });
 };
-//
-// exports.contentItems_create_contentItem = (req, res, next) => {
-//   const contentItem = new Content_Item({
-//     _id: new mongoose.Types.ObjectId(),
-//     name: req.body.name,
-//     source: req.body.source,
-//     author: req.body.author,
-//     isFree: req.body.isFree,
-//     price: req.body.price,
-//   });
-//   contentItem
-//     .save()
-//     .then(result => {
-//       console.log(result);
-//       res.status(201).json({
-//         message: "Created contentItem successfully",
-//         createdContentItem: {
-//           _id: result._id,
-//           name: result.name,
-//           source: result.source,
-//           author: result.author,
-//           isFree: result.isFree,
-//           price: result.price,
-//           request: {
-//             type: "GET",
-//             url: "http://localhost:9000/contentItems/" + result._id
-//           }
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// };
+
+exports.create_course = (req, res, next) => {
+    const course = new Course({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        creator: req.body.creator,
+        difficulty: req.body.difficulty,
+        description: req.body.description,
+        keywords: req.body.keywords,
+        courseItems: req.body.courseItems,
+        isFree: req.body.isFree,
+        price: req.body.price,
+    });
+    course
+        .save()
+        .then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: "Created course successfully",
+                createdContentItem: {
+                    _id: result._id,
+                    name: result.name,
+                    creator: result.creator,
+                    difficulty: result.difficulty,
+                    description: result.description,
+                    keywords: result.keywords,
+                    courseItems: result.courseItems,
+                    isFree: result.isFree,
+                    price: result.price || undefined,
+                    request: {
+                        type: "GET",
+                        url: "http://localhost:9000/courses/" + result._id
+                    }
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
 //
 // exports.contentItems_get_contentItem = (req, res, next) => {
 //   const id = req.params.contentItemId;
