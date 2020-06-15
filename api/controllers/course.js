@@ -1,37 +1,40 @@
-// const mongoose = require("mongoose");
-// const Content_Item = require("../models/contentItem");
-//
-// exports.contentItems_get_all = (req, res, next) => {
-//   Content_Item.find()
-//     .select("_id name source author isFree price")
-//       .exec()
-//     .then(docs => {
-//       const response = {
-//         count: docs.length,
-//         items: docs.map(doc => {
-//           return {
-//             _id: doc._id,
-//             name: doc.name,
-//             source: doc.source,
-//             author: doc.author,
-//             isFree: doc.isFree,
-//             price: doc.price || undefined,
-//             request: {
-//               type: "GET",
-//               url: "http://localhost:9000/products/" + doc._id
-//             }
-//           };
-//         })
-//       };
-//       res.status(200).json(response);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// };
+const mongoose = require("mongoose");
+const Course = require("../models/course");
+
+exports.courses_get_all = (req, res, next) => {
+    Course.find()
+        .select("_id name creator difficulty description keywords, courseItems, isFree price")
+        .exec()
+        .then(docs => {
+            const response = {
+                count: docs.length,
+                items: docs.map(doc => {
+                    return {
+                        _id: doc._id,
+                        name: doc.name,
+                        creator: doc.creator,
+                        difficulty: doc.difficulty,
+                        description: doc.description,
+                        keywords: doc.keywords,
+                        courseItems: doc.courseItems,
+                        isFree: doc.isFree,
+                        price: doc.price || undefined,
+                        request: {
+                            type: "GET",
+                            url: "http://localhost:9000/courses/" + doc._id
+                        }
+                    };
+                })
+            };
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
 //
 // exports.contentItems_create_contentItem = (req, res, next) => {
 //   const contentItem = new Content_Item({
