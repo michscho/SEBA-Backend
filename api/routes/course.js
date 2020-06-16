@@ -38,6 +38,6 @@ router.get("/:courseId", CourseController.courses_get_course);
 
 //router.patch("/:courseId", CourseController.contentItems_update_contentItem);
 
-// router.delete("/:courseId", CourseController.contentItems_delete);
+router.delete("/:courseId", CourseController.courses_delete);
 
 module.exports = router;
