@@ -36,6 +36,10 @@ app.use((req, res, next) => {
 app.use("/contentItems", contentItemsRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/user", userRoutes);
+app.use("/topics", topicRoutes);
+app.use("/subscriptions", subscriptionRoutes);
+app.use("/comments", commentRoutes);
+
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
