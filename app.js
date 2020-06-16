@@ -7,6 +7,10 @@ const mongoose = require("mongoose");
 const contentItemsRoutes = require("./api/routes/contentItem");
 const coursesRoutes = require("./api/routes/course");
 const userRoutes = require('./api/routes/user');
+const commentRoutes = require('./api/routes/comment');
+const subscriptionRoutes = require('./api/routes/subscription');
+const topicRoutes = require('./api/routes/topic');
+
 
 mongoose.connect(
   "mongodb+srv://test-user:" +
