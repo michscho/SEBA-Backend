@@ -105,49 +105,49 @@ exports.courses_get_course = (req, res, next) => {
             res.status(500).json({error: err});
         });
 };
-//
-// exports.contentItems_update_contentItem = (req, res, next) => {
-//   const id = req.params.contentItemId;
-//   const updateOps = {};
-//   for (const ops of req.body) {
-//     updateOps[ops.propName] = ops.value;
-//   }
-//   Content_Item.update({ _id: id }, { $set: updateOps })
-//     .exec()
-//     .then(result => {
-//       res.status(200).json({
-//         message: "Content Item updated",
-//         request: {
-//           type: "GET",
-//           url: "http://localhost:9000/contentItems/" + id
-//         }
-//       });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// };
-//
+
+exports.courses_update_course = (req, res, next) => {
+    const id = req.params.courseId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Course.update({_id: id}, {$set: updateOps})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Course updated",
+                request: {
+                    type: "GET",
+                    url: "http://localhost:9000/courses/" + id
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
 exports.courses_delete = (req, res, next) => {
-  const id = req.params.courseId;
-  Course.remove({ _id: id })
-    .exec()
-    .then(result => {
-      res.status(200).json({
-        message: "Course deleted",
-        request: {
-          type: "POST",
-          url: "http://localhost:9000/courses",
-        }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+    const id = req.params.courseId;
+    Course.remove({_id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Course deleted",
+                request: {
+                    type: "POST",
+                    url: "http://localhost:9000/courses",
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 };

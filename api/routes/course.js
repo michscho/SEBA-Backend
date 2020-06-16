@@ -36,7 +36,7 @@ router.post("/", CourseController.create_course);
 
 router.get("/:courseId", CourseController.courses_get_course);
 
-//router.patch("/:courseId", CourseController.contentItems_update_contentItem);
+router.patch("/:courseId", CourseController.courses_update_course);
 
 router.delete("/:courseId", CourseController.courses_delete);
 
