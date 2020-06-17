@@ -3,7 +3,7 @@ const Comment = require("../models/comment");
 
 exports.comments_get_all = (req, res, next) => {
     Comment.find()
-        .select("_id name  creationDate content creator belonging")
+        .select("_id name creationDate content creator belonging")
         .exec()
         .then(docs => {
             const response = {
@@ -48,7 +48,7 @@ exports.create_comment = (req, res, next) => {
             console.log(result);
             res.status(201).json({
                 message: "Created comment successfully",
-                createdContentItem: {
+                createdComment: {
                     _id: new result.id,
                     name: result.name,
                     creationDate: result.creationDate,
@@ -73,7 +73,7 @@ exports.create_comment = (req, res, next) => {
 exports.comments_get_comment = (req, res, next) => {
     const id = req.params.commentId;
     Comment.findById(id)
-        .select("_id name  creationDate content creator belonging")
+        .select("_id name creationDate content creator belonging")
         .exec()
         .then(doc => {
             console.log("From database", doc);

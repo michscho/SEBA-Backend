@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const Subscription = require("../models/subscription");
+const Topic = require("../models/topic");
 
-exports.subscriptions_get_all = (req, res, next) => {
-    Subscription.find()
-        .select("_id type price startDate expirationDate owner")
+exports.topics_get_all = (req, res, next) => {
+    Topic.find()
+        .select("_id name description courses")
         .exec()
         .then(docs => {
             const response = {
@@ -11,14 +11,12 @@ exports.subscriptions_get_all = (req, res, next) => {
                 items: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        type: doc.type,
-                        price: doc.price,
-                        startDate: doc.startDate,
-                        expirationDate: doc.expirationDate,
-                        owner: doc.owner,
+                        name: doc.name,
+                        description: doc.description,
+                        courses: doc.courses,
                         request: {
                             type: "GET",
-                            url: "http://localhost:9000/subscriptions/" + doc._id
+                            url: "http://localhost:9000/topics/" + doc._id
                         }
                     };
                 })
@@ -33,31 +31,27 @@ exports.subscriptions_get_all = (req, res, next) => {
         });
 };
 
-exports.create_subscription = (req, res, next) => {
-    const subscription = new Subscription({
+exports.create_topic = (req, res, next) => {
+    const topic = new Topic({
         _id: new mongoose.Types.ObjectId(),
-        type: req.body.type,
-        price: req.body.price,
-        startDate: req.body.startDate,
-        expirationDate: req.body.expirationDate,
-        owner: req.body.owner,
+        name: req.body.name,
+        description: req.body.description,
+        courses: req.body.courses,
     });
-    subscription
+    topic
         .save()
         .then(result => {
             console.log(result);
             res.status(201).json({
-                message: "Created subscription successfully",
-                createdSubscription: {
+                message: "Created topic successfully",
+                createdComment: {
                     _id: new result.id,
-                    type: result.type,
-                    price: result.price,
-                    startDate: result.startDate,
-                    expirationDate: result.expirationDate,
-                    owner: result.owner,
+                    name: result.name,
+                    description: result.description,
+                    courses: result.courses,
                     request: {
                         type: "GET",
-                        url: "http://localhost:9000/subscriptions/" + result._id
+                        url: "http://localhost:9000/topics/" + result._id
                     }
                 }
             });
@@ -70,19 +64,19 @@ exports.create_subscription = (req, res, next) => {
         });
 };
 
-exports.subscriptions_get_subscription = (req, res, next) => {
-    const id = req.params.subscriptionId;
-    Subscription.findById(id)
-        .select("_id type price startDate expirationDate owner")
+exports.topics_get_topic = (req, res, next) => {
+    const id = req.params.topicId;
+    Topic.findById(id)
+        .select("_id name description courses")
         .exec()
         .then(doc => {
             console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
-                    subscriptions: doc,
+                    comment: doc,
                     request: {
                         type: "GET",
-                        url: "http://localhost:9000/subscriptions"
+                        url: "http://localhost:9000/topics"
                     }
                 });
             } else {
@@ -97,20 +91,20 @@ exports.subscriptions_get_subscription = (req, res, next) => {
         });
 };
 
-exports.subscriptions_update_subscription = (req, res, next) => {
-    const id = req.params.subscriptionId;
+exports.topics_update_topic = (req, res, next) => {
+    const id = req.params.topicId;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Subscription.update({_id: id}, {$set: updateOps})
+    Topic.update({_id: id}, {$set: updateOps})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "SubscriptionId updated",
+                message: "Topic updated",
                 request: {
                     type: "GET",
-                    url: "http://localhost:9000/subscriptions/" + id
+                    url: "http://localhost:9000/topics/" + id
                 }
             });
         })
@@ -122,16 +116,16 @@ exports.subscriptions_update_subscription = (req, res, next) => {
         });
 };
 
-exports.subscriptions_delete = (req, res, next) => {
-    const id = req.params.subscriptionId;
-    Subscription.remove({_id: id})
+exports.topics_delete = (req, res, next) => {
+    const id = req.params.topicId;
+    Topic.remove({_id: id})
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "Subscription deleted",
+                message: "Topic deleted",
                 request: {
                     type: "POST",
-                    url: "http://localhost:9000/subscriptions",
+                    url: "http://localhost:9000/topics",
                 }
             });
         })
