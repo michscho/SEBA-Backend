@@ -9,4 +9,4 @@ const commentSchema = mongoose.Schema({
     belonging: {type: String, required: true},
 });
 
-module.exports = mongoose.model('Course', commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);

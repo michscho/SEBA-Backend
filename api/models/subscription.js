@@ -9,4 +9,4 @@ const subscriptionSchema = mongoose.Schema({
     owner: {type: String, required: true},
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+module.exports = mongoose.model('Subscription', subscriptionSchema);
