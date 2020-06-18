@@ -108,3 +108,30 @@ exports.user_delete = (req, res, next) => {
       });
     });
 };
+
+exports.user_get = (req, res, next) => {
+  const id = req.params.userId;
+  User.findById(id)
+      .select("_id email password prename surname achievment courses topics")
+      .exec()
+      .then(doc => {
+        console.log("From database", doc);
+        if (doc) {
+          res.status(200).json({
+            user: doc,
+            request: {
+              type: "GET",
+              url: "http://localhost:9000/users"
+            }
+          });
+        } else {
+          res
+              .status(404)
+              .json({ message: "No valid entry found for provided ID" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+};
