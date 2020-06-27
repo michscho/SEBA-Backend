@@ -106,6 +106,33 @@ exports.courses_get_course = (req, res, next) => {
         });
 };
 
+exports.courses_get_content_items = (req, res, next) => {
+    const id = req.params.courseId;
+    Course.findById(id)
+        .select("courseItems")
+        .exec()
+        .then(doc => {
+            console.log("From database", doc);
+            if (doc) {
+                res.status(200).json({
+                    contentItem: doc,
+                    request: {
+                        type: "GET",
+                        url: "http://localhost:9000/courses"
+                    }
+                });
+            } else {
+                res
+                    .status(404)
+                    .json({message: "No valid entry found for provided ID"});
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err});
+        });
+};
+
 exports.courses_update_course = (req, res, next) => {
     const id = req.params.courseId;
     const updateOps = {};
