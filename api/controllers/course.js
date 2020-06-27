@@ -115,10 +115,11 @@ exports.courses_get_content_items = (req, res, next) => {
             console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
-                    contentItem: doc,
+                    courseId: id,
+                    contentItems: doc.courseItems,
                     request: {
                         type: "GET",
-                        url: "http://localhost:9000/courses"
+                        url: "http://localhost:9000/courses/contentItems"
                     }
                 });
             } else {
