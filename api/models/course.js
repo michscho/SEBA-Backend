@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const courseSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    name: { type: String, required: true },
-    creator: { type: String, required: true },
-    difficulty: { type: Number, required: true, default: -1 },
+    name: {type: String, required: true},
+    creator: {type: String, required: true},
+    difficulty: {type: Number, required: true, default: -1},
     description: {type: String, required: true},
     keywords: {type: Array, required: true},
-    courseItems: {type: Array, required: true},
+    courseItems: [{name: String, link: String}],
     isFree: {type: Boolean, required: true},
     price: {type: Number, required: false},
 });
