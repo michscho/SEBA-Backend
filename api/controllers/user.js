@@ -55,13 +55,13 @@ exports.user_login = (req, res, next) => {
     .then(user => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Invalid Username or Password"
         });
       }
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
         if (err) {
           return res.status(401).json({
-            message: "Auth failed"
+            message: "Invalid Username or Password"
           });
         }
         if (result) {
@@ -72,7 +72,7 @@ exports.user_login = (req, res, next) => {
             },
             process.env.JWT_KEY,
             {
-              expiresIn: "1h"
+              expiresIn: "7d"
             }
           );
           return res.status(200).json({
@@ -81,7 +81,7 @@ exports.user_login = (req, res, next) => {
           });
         }
         res.status(401).json({
-          message: "Auth failed"
+          message: "No information recieved"
         });
       });
     })
@@ -94,7 +94,7 @@ exports.user_login = (req, res, next) => {
 };
 
 exports.user_delete = (req, res, next) => {
-  User.remove({ _id: req.params.userId })
+  User.remove({ _id: req.userData.userId })
     .exec()
     .then(result => {
       res.status(200).json({
@@ -110,7 +110,7 @@ exports.user_delete = (req, res, next) => {
 };
 
 exports.user_get = (req, res, next) => {
-  const id = req.params.userId;
+  const id = req.userData.userId;
   User.findById(id)
       .select("_id email password prename surname achievment courses topics")
       .exec()
