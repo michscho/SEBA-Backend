@@ -20,14 +20,22 @@ exports.user_signup = (req, res, next) => {
             });
           } else {
             const user = new User({
-              _id: new mongoose.Types.ObjectId(),
-              email: req.body.email,
-              password: hash,
-              prename: req.body.prename,
-              surname:  req.body.surname,
-              achievment:  req.body.achievment || undefined,
-              courses:  req.body.courses || undefined,
-              topics:  req.body.topics || undefined,
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: hash,
+                prename: req.body.prename,
+                surname:  req.body.surname,
+                achievment:  req.body.achievment || undefined,
+                courses:  req.body.courses || undefined,
+                topics:  req.body.topics || undefined,
+                phone: "Unknown",
+                gender: "Unknown",
+                premiumUser: false,
+                privateprofile: false,
+                mailnewsletter: true,
+                mailcommunityupdate: true,
+                smsnewsletter: true,
+                smscommunityupdate: false,
             });
             user
               .save()
@@ -112,7 +120,7 @@ exports.user_delete = (req, res, next) => {
 exports.user_get = (req, res, next) => {
   const id = req.userData.userId;
   User.findById(id)
-      .select("_id email password prename surname achievment courses topics")
+      .select("_id email password prename surname achievment courses topics phone gender premiumUser privateprofile mailnewsletter mailcommunityupdate smsnewsletter smscommunityupdate")
       .exec()
       .then(doc => {
         console.log("From database", doc);
