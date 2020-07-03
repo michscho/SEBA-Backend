@@ -29,7 +29,7 @@ exports.user_signup = (req, res, next) => {
                 courses:  req.body.courses || undefined,
                 topics:  req.body.topics || undefined,
                 phone: "Unknown",
-                gender: "Unknown",
+                gender: "Male",
                 premiumUser: false,
                 privateprofile: false,
                 mailnewsletter: true,
