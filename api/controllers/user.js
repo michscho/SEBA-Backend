@@ -126,11 +126,7 @@ exports.user_get = async (req, res, next) => {
         console.log("From database", doc);
         if (doc) {
           res.status(200).json({
-            user: doc,
-            request: {
-              type: "GET",
-              url: "http://localhost:9000/users"
-            }
+            user: doc
           });
         } else {
           res
