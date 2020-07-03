@@ -117,7 +117,7 @@ exports.user_delete = (req, res, next) => {
     });
 };
 
-exports.user_get = (req, res, next) => {
+exports.user_get = async (req, res, next) => {
   const id = req.userData.userId;
   User.findById(id)
       .select("_id email password prename surname achievment courses topics phone gender premiumUser privateprofile mailnewsletter mailcommunityupdate smsnewsletter smscommunityupdate")
@@ -142,4 +142,54 @@ exports.user_get = (req, res, next) => {
         console.log(err);
         res.status(500).json({ error: err });
       });
+};
+
+exports.user_updatePassword = (req, res, next) => {
+    const filter = {_id: req.userData.userId};
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({
+                error: err
+            });
+        } else {
+            const update = {
+                password: hash,
+            };
+            User.findOneAndUpdate(filter, update)
+                .then(result => {
+                    res.status(201).json({
+                        message: "User updated"
+                    });
+                })
+            .catch(
+                error => {
+                    console.log("Error");
+                }
+            );
+        }
+    });
+};
+
+exports.user_update = async (req, res, next) => {
+    const filter = {_id: req.userData.userId};
+    const update = {
+        prename: req.body.firstname ,
+        surname: req.body.lastname,
+        email: req.body.email,
+        phone: req.body.phone,
+        gender: req.body.gender,
+        privateprofile: req.body.privacy,
+        mailcommunityupdate: req.body.commail,
+        smscommunityupdate: req.body.comsms,
+        mailnewsletter: req.body.newsmail,
+        smsnewsletter: req.body.newssms,
+    };
+    try {
+        const doc = await User.findOneAndUpdate(filter, update);
+        res.status(201).json({
+            message: "User updated"
+        });
+    } catch (error) {
+        console.log("Error");
+    }
 };
