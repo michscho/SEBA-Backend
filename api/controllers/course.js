@@ -35,7 +35,7 @@ exports.create_course = (req, res, next) => {
     const course = new Course({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        creatorId: req.body.creatorId,
+        creatorId: req.userData.userId,
         difficulty: req.body.difficulty,
         description: req.body.description,
         contentItems: req.body.contentItems,

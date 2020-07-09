@@ -32,7 +32,7 @@ const upload = multer({
 
 router.get("/", CourseController.courses_get_all);
 
-router.post("/", CourseController.create_course);
+router.post("/", checkAuth, CourseController.create_course);
 
 router.get("/:courseId", CourseController.courses_get_course);
 
