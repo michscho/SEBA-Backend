@@ -35,13 +35,11 @@ exports.courses_get_all = (req, res, next) => {
 
 exports.create_course = (req, res, next) => {
 
-    let itemIds = [];
+    let items = [];
     for(let i = 0; i < req.body.contentItems.length; i++){
-        const generatedId = new mongoose.Types.ObjectId();
-        itemIds.push(generatedId.toString());
         const item = req.body.contentItems[i];
         const contentItem = new Content_Item({
-            _id: generatedId,
+            _id: new mongoose.Types.ObjectId(),
             title: item.title,
             source: item.source,
             description: item.description,
@@ -66,6 +64,7 @@ exports.create_course = (req, res, next) => {
                     error: err
                 });
             });
+        items.push(contentItem);
     }
 
     const course = new Course({
@@ -74,7 +73,7 @@ exports.create_course = (req, res, next) => {
         creatorId: req.userData.userId,
         difficulty: req.body.difficulty,
         description: req.body.description,
-        contentItems: itemIds,
+        contentItems: items,
         rating: req.body.rating,
         price: req.body.price,
     });
