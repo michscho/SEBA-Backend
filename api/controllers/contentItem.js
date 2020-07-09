@@ -27,6 +27,35 @@ exports.contentItems_get_all = (req, res, next) => {
         });
 };
 
+exports.contentItems_create_contentItems_from_course = (item) => {
+    const contentItem = new Content_Item({
+        _id: new mongoose.Types.ObjectId(),
+        title: item.title,
+        source: item.source,
+        description: item.description,
+    });
+    contentItem
+        .save()
+        .then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: "Created contentItem successfully",
+                createdContentItem: {
+                    _id: result._id,
+                    title: result.title,
+                    source: result.source,
+                    description: result.description,
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
 exports.contentItems_create_contentItem = (req, res, next) => {
     const contentItem = new Content_Item({
         _id: new mongoose.Types.ObjectId(),
