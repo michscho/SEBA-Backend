@@ -3,7 +3,7 @@ const Content_Item = require("../models/contentItem");
 
 exports.contentItems_get_all = (req, res, next) => {
     Content_Item.find()
-        .select("_id name source author isFree price")
+        .select("_id title description source")
         .exec()
         .then(docs => {
             const response = {
@@ -11,15 +11,9 @@ exports.contentItems_get_all = (req, res, next) => {
                 items: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        name: doc.name,
+                        title: doc.title,
+                        description: doc.description,
                         source: doc.source,
-                        author: doc.author,
-                        isFree: doc.isFree,
-                        price: doc.price || undefined,
-                        request: {
-                            type: "GET",
-                            url: "http://localhost:9000/products/" + doc._id
-                        }
                     };
                 })
             };
@@ -36,11 +30,9 @@ exports.contentItems_get_all = (req, res, next) => {
 exports.contentItems_create_contentItem = (req, res, next) => {
     const contentItem = new Content_Item({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
+        title: req.body.title,
         source: req.body.source,
-        author: req.body.author,
-        isFree: req.body.isFree,
-        price: req.body.price,
+        description: req.body.description,
     });
     contentItem
         .save()
@@ -50,15 +42,9 @@ exports.contentItems_create_contentItem = (req, res, next) => {
                 message: "Created contentItem successfully",
                 createdContentItem: {
                     _id: result._id,
-                    name: result.name,
+                    title: result.title,
                     source: result.source,
-                    author: result.author,
-                    isFree: result.isFree,
-                    price: result.price,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:9000/contentItems/" + result._id
-                    }
+                    description: result.description,
                 }
             });
         })
@@ -73,7 +59,7 @@ exports.contentItems_create_contentItem = (req, res, next) => {
 exports.contentItems_get_contentItem = (req, res, next) => {
     const id = req.params.contentItemId;
     Content_Item.findById(id)
-        .select("_id name source author isFree price")
+        .select("_id title description source")
         .exec()
         .then(doc => {
             console.log("From database", doc);
