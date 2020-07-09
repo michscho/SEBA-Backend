@@ -3,7 +3,7 @@ const Comment = require("../models/comment");
 
 exports.comments_get_all = (req, res, next) => {
     Comment.find()
-        .select("_id name creationDate content creator belonging")
+        .select("_id title text creator contentId")
         .exec()
         .then(docs => {
             const response = {
@@ -11,11 +11,10 @@ exports.comments_get_all = (req, res, next) => {
                 items: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        name: doc.name,
-                        creationDate: doc.creationDate,
-                        content: doc.content,
+                        title: doc.title,
+                        text: doc.text,
                         creator: doc.creator,
-                        belonging: doc.belonging,
+                        contentId: doc.contentId,
                         request: {
                             type: "GET",
                             url: "http://localhost:9000/comments/" + doc._id
@@ -36,11 +35,10 @@ exports.comments_get_all = (req, res, next) => {
 exports.create_comment = (req, res, next) => {
     const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        creationDate: req.body.creationDate,
-        content: req.body.content,
+        title: req.body.title,
+        text: req.body.text,
         creator: req.body.creator,
-        belonging: req.body.belonging,
+        contentId: req.body.contentId,
     });
     comment
         .save()
@@ -50,11 +48,10 @@ exports.create_comment = (req, res, next) => {
                 message: "Created comment successfully",
                 createdComment: {
                     _id: new result.id,
-                    name: result.name,
-                    creationDate: result.creationDate,
-                    content: result.content,
+                    title: result.title,
+                    text: result.text,
                     creator: result.creator,
-                    belonging: result.belonging,
+                    contentId: result.contentId,
                     request: {
                         type: "GET",
                         url: "http://localhost:9000/comments/" + result._id
@@ -73,7 +70,7 @@ exports.create_comment = (req, res, next) => {
 exports.comments_get_comment = (req, res, next) => {
     const id = req.params.commentId;
     Comment.findById(id)
-        .select("_id name creationDate content creator belonging")
+        .select("_id title text creator contentId")
         .exec()
         .then(doc => {
             console.log("From database", doc);
