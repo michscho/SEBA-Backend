@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Course = require("../models/course");
-const ContentItem = require('../contentItem');
+const ContentItem = require('../controllers/contentItem');
 
 
 exports.courses_get_all = (req, res, next) => {
