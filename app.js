@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 app.use("/contentItems", contentItemsRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/user", userRoutes);
-app.use("/comments", commentRoutes);
+app.use("/comment", commentRoutes);
 
 
 app.use((req, res, next) => {
