@@ -3,7 +3,7 @@ const Course = require("../models/course");
 
 exports.courses_get_all = (req, res, next) => {
     Course.find()
-        .select("_id name creator difficulty description keywords, courseItems, isFree price")
+        .select("_id name creatorId difficulty description contentItems rating price")
         .exec()
         .then(docs => {
             const response = {
@@ -12,17 +12,12 @@ exports.courses_get_all = (req, res, next) => {
                     return {
                         _id: doc._id,
                         name: doc.name,
-                        creator: doc.creator,
+                        creatorId: doc.creator,
                         difficulty: doc.difficulty,
                         description: doc.description,
-                        keywords: doc.keywords,
-                        courseItems: doc.courseItems,
-                        isFree: doc.isFree,
+                        contentItems: doc.contentItems,
+                        rating: doc.rating,
                         price: doc.price || undefined,
-                        request: {
-                            type: "GET",
-                            url: "http://localhost:9000/courses/" + doc._id
-                        }
                     };
                 })
             };
@@ -40,12 +35,11 @@ exports.create_course = (req, res, next) => {
     const course = new Course({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        creator: req.body.creator,
+        creatorId: req.body.creatorId,
         difficulty: req.body.difficulty,
         description: req.body.description,
-        keywords: req.body.keywords,
-        courseItems: req.body.courseItems,
-        isFree: req.body.isFree,
+        contentItems: req.body.contentItems,
+        rating: req.body.rating,
         price: req.body.price,
     });
     course
@@ -57,13 +51,12 @@ exports.create_course = (req, res, next) => {
                 createdContentItem: {
                     _id: result._id,
                     name: result.name,
-                    creator: result.creator,
+                    creatorId: result.creatorId,
                     difficulty: result.difficulty,
                     description: result.description,
-                    keywords: result.keywords,
-                    courseItems: result.courseItems,
-                    isFree: result.isFree,
+                    contentItems: result.contentItems,
                     price: result.price || undefined,
+                    rating: result.rating,
                     request: {
                         type: "GET",
                         url: "http://localhost:9000/courses/" + result._id
@@ -82,7 +75,7 @@ exports.create_course = (req, res, next) => {
 exports.courses_get_course = (req, res, next) => {
     const id = req.params.courseId;
     Course.findById(id)
-        .select("_id name creator difficulty description keywords, courseItems, isFree price")
+        .select("_id name creatorId difficulty description contentItems rating price")
         .exec()
         .then(doc => {
             console.log("From database", doc);
