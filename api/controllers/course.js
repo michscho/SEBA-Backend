@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Course = require("../models/course");
+const ContentItem = require('../contentItem');
+
 
 exports.courses_get_all = (req, res, next) => {
     Course.find()
@@ -32,6 +34,11 @@ exports.courses_get_all = (req, res, next) => {
 };
 
 exports.create_course = (req, res, next) => {
+
+    for(let i = 0; i < req.body.contentItems.length; i++){
+        ContentItem.contentItems_create_contentItems_from_course();
+    }
+
     const course = new Course({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
