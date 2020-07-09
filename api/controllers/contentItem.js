@@ -94,11 +94,7 @@ exports.contentItems_get_contentItem = (req, res, next) => {
             console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
-                    contentItem: doc,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:9000/contentItems"
-                    }
+                    contentItem: doc
                 });
             } else {
                 res
@@ -143,11 +139,7 @@ exports.contentItems_delete = (req, res, next) => {
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "ContentItem deleted",
-                request: {
-                    type: "POST",
-                    url: "http://localhost:3000/contentitems",
-                }
+                message: "ContentItem deleted"
             });
         })
         .catch(err => {
