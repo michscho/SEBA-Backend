@@ -15,13 +15,7 @@ exports.create_comment = (req, res, next) => {
             console.log(result);
             res.status(201).json({
                 message: "Created comment successfully",
-                createdComment: {
-                    _id: new result.id,
-                    title: result.title,
-                    text: result.text,
-                    creator: result.creator,
-                    contentId: result.contentId
-                }
+                result
             });
         })
         .catch(err => {
@@ -33,7 +27,7 @@ exports.create_comment = (req, res, next) => {
 };
 
 exports.comments_get_comment = (req, res, next) => {
-    Comment.find({contentid: req.params.contentId})
+    Comment.find({contentId: req.params.contentId})
         .then(doc => {
             console.log("From database", doc);
             if (doc) {
@@ -53,18 +47,36 @@ exports.comments_get_comment = (req, res, next) => {
 };
 
 exports.comments_delete = (req, res, next) => {
-    const id = req.params.commentId;
-    Comment.remove({_id: id})
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                message: "Comment deleted"
-            });
+    Comment.find({_id: req.params.commentId})
+        .then(doc => {
+            if (doc && doc.length > 0) {
+                console.log(doc);
+                if (req.userData.userId === doc[0].creator) {
+                    const id = req.params.commentId;
+                    Comment.remove({_id: id})
+                        .exec()
+                        .then(result => {
+                            res.status(200).json({
+                                message: "Comment deleted",
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            res.status(500).json({
+                                error: err
+                            });
+                        });
+                }
+
+            } else {
+                res
+                    .status(404)
+                    .json({message: "No valid entry found for provided ID"});
+            }
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
-                error: err
-            });
+            res.status(500).json({error: err});
         });
+
 };

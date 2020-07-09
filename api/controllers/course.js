@@ -116,11 +116,7 @@ exports.courses_get_course = (req, res, next) => {
             console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
-                    contentItem: doc,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:9000/courses"
-                    }
+                    course: doc,
                 });
             } else {
                 res
