@@ -6,7 +6,7 @@ const courseSchema = mongoose.Schema({
     creatorId: {type: String, required: true},
     difficulty: {type: Number, required: true, default: -1},
     description: {type: String, required: true},
-    contentItems: [{name: Array, link: String}],
+    contentItems: {type: Array, required: true},
     rating: {type: Array, required: true},
     price: {type: Number, required: false},
 });
