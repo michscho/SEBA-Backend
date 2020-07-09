@@ -36,7 +36,7 @@ exports.courses_get_all = (req, res, next) => {
 exports.create_course = (req, res, next) => {
 
     for(let i = 0; i < req.body.contentItems.length; i++){
-        ContentItem.contentItems_create_contentItems_from_course();
+        ContentItem.contentItems_create_contentItems_from_course(req.body.contentItems[i]);
     }
 
     const course = new Course({
