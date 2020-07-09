@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Course = require("../models/course");
-const ContentItem = require('../controllers/contentItem');
+const Content_Item = require("../models/contentItem");
 
 
 exports.courses_get_all = (req, res, next) => {
@@ -35,8 +35,37 @@ exports.courses_get_all = (req, res, next) => {
 
 exports.create_course = (req, res, next) => {
 
+    let itemIds = [];
     for(let i = 0; i < req.body.contentItems.length; i++){
-        ContentItem.contentItems_create_contentItems_from_course(req.body.contentItems[i]);
+        const generatedId = new mongoose.Types.ObjectId();
+        itemIds.push(generatedId.toString());
+        const item = req.body.contentItems[i];
+        const contentItem = new Content_Item({
+            _id: generatedId,
+            title: item.title,
+            source: item.source,
+            description: item.description,
+        });
+        contentItem
+            .save()
+            .then(result => {
+                console.log(result);
+                res.status(201).json({
+                    message: "Created contentItem successfully",
+                    createdContentItem: {
+                        _id: result._id,
+                        title: result.title,
+                        source: result.source,
+                        description: result.description,
+                    }
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
     }
 
     const course = new Course({
@@ -45,7 +74,7 @@ exports.create_course = (req, res, next) => {
         creatorId: req.userData.userId,
         difficulty: req.body.difficulty,
         description: req.body.description,
-        contentItems: req.body.contentItems,
+        contentItems: itemIds,
         rating: req.body.rating,
         price: req.body.price,
     });
