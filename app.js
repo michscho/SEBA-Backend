@@ -8,8 +8,6 @@ const contentItemsRoutes = require("./api/routes/contentItem");
 const coursesRoutes = require("./api/routes/course");
 const userRoutes = require('./api/routes/user');
 const commentRoutes = require('./api/routes/comment');
-const subscriptionRoutes = require('./api/routes/subscription');
-const topicRoutes = require('./api/routes/topic');
 
 
 mongoose.connect(
@@ -40,8 +38,6 @@ app.use((req, res, next) => {
 app.use("/contentItems", contentItemsRoutes);
 app.use("/courses", coursesRoutes);
 app.use("/user", userRoutes);
-app.use("/topics", topicRoutes);
-app.use("/subscriptions", subscriptionRoutes);
 app.use("/comments", commentRoutes);
 
 
