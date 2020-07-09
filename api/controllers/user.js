@@ -36,6 +36,7 @@ exports.user_signup = (req, res, next) => {
                 mailcommunityupdate: true,
                 smsnewsletter: true,
                 smscommunityupdate: false,
+                completedItems: "",
             });
             user
               .save()
@@ -120,7 +121,7 @@ exports.user_delete = (req, res, next) => {
 exports.user_get = async (req, res, next) => {
   const id = req.userData.userId;
   User.findById(id)
-      .select("_id email password prename surname achievment courses topics phone gender premiumUser privateprofile mailnewsletter mailcommunityupdate smsnewsletter smscommunityupdate")
+      .select("_id email password prename surname achievment courses topics phone gender premiumUser privateprofile smailnewsletter mailcommunityupdate smsnewsletter smscommunityupdate completedItems")
       .exec()
       .then(doc => {
         console.log("From database", doc);
@@ -179,6 +180,7 @@ exports.user_update = async (req, res, next) => {
         smscommunityupdate: req.body.comsms,
         mailnewsletter: req.body.newsmail,
         smsnewsletter: req.body.newssms,
+        completedItems: req.body.completedItemsm,
     };
     try {
         const doc = await User.findOneAndUpdate(filter, update);

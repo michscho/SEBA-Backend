@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema({
     achievment: {type: String, required: false},
     courses: {type: Array, required: false},
     topics: {type: Array, required: false},
+    completedItems: {type: Array, required: false},
 });
 
 module.exports = mongoose.model('User', userSchema);
