@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 
 exports.create_comment = (req, res, next) => {
     const comment = new Comment({
@@ -26,24 +27,25 @@ exports.create_comment = (req, res, next) => {
         });
 };
 
-exports.comments_get_comment = (req, res, next) => {
-    Comment.find({contentId: req.params.contentId})
-        .then(doc => {
-            console.log("From database", doc);
-            if (doc) {
-                res.status(200).json({
-                    comment: doc
-                });
-            } else {
-                res
-                    .status(404)
-                    .json({message: "No valid entry found for provided ID"});
+exports.comments_get_comment = async (req, res, next) => {
+    try {
+        const comments = await Comment.find({contentId: req.params.contentId});
+        for (let i = 0; i < comments.length; i++) {
+            const user = await User.findById(comments[i].creator)
+            if (user) {
+                comments[i].creator = user.prename + " " + user.surname;
             }
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({error: err});
+            else {
+                comments[i].creator = "Deleted User";
+            }
+        }
+        res.status(200).json({
+            comment: comments
         });
+    }
+    catch {
+        res.status(404).json({message: "Invalid comment"});
+    }
 };
 
 exports.comments_delete = (req, res, next) => {
