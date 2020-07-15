@@ -160,11 +160,28 @@ exports.user_updatePassword = (req, res, next) => {
                 })
             .catch(
                 error => {
-                    console.log("Error");
+                    console.log("User couldn't be updated");
                 }
             );
         }
     });
+};
+
+exports.user_updateUserCourses = (req, res, next) => {
+    const filter = {_id: req.userData.userId};
+    const update = {
+        courses: req.body.courses,
+    };
+    User.findOneAndUpdate(filter, update)
+        .then(result => {
+            res.status(201).json({
+                message: "User updated"
+            });
+        })
+        .catch(error => {
+            console.log("User couldn't be updated")
+            }
+        );
 };
 
 exports.user_update = async (req, res, next) => {

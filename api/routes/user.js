@@ -16,4 +16,6 @@ router.post("/update", checkAuth, UserController.user_update);
 
 router.post("/updatePassword", checkAuth, UserController.user_updatePassword);
 
+router.post("/updateUserCourses", checkAuth, UserController.user_updateUserCourses);
+
 module.exports = router;
