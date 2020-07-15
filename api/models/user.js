@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema({
     smsnewsletter: {type: Boolean, required: true},
     smscommunityupdate: {type: Boolean, required: true},
     achievment: {type: String, required: false},
-    courses: {type: Array, "default": [], required: false},
+    courses: {type: Array, "default": [], required: true},
     topics: {type: Array, required: false},
     completedItems: {type: Array, required: false},
 });
