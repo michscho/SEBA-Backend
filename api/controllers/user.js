@@ -26,7 +26,7 @@ exports.user_signup = (req, res, next) => {
                 prename: req.body.prename,
                 surname:  req.body.surname,
                 achievment:  req.body.achievment || undefined,
-                courses:  req.body.courses || [""],
+                courses:  [""],
                 topics:  req.body.topics || undefined,
                 phone: "Unknown",
                 gender: "Male",
