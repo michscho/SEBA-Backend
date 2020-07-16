@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const Course = require("../models/course");
 
 exports.user_signup = (req, res, next) => {
   User.find({ email: req.body.email })
@@ -26,7 +27,7 @@ exports.user_signup = (req, res, next) => {
                 prename: req.body.prename,
                 surname:  req.body.surname,
                 achievment:  req.body.achievment || undefined,
-                courses:  [""],
+                courses:  req.body.courses,
                 topics:  req.body.topics || undefined,
                 phone: "Unknown",
                 gender: "Male",
@@ -182,6 +183,23 @@ exports.user_updateUserCourses = (req, res, next) => {
             console.log("User couldn't be updated")
             }
         );
+};
+
+exports.user_enrolledCourses = async (req, res, next) => {
+    try {
+        const user = await User.find({_id: req.userData.userId});
+        const courses = user[0].courses;
+        const enrolledCourses = [];
+        for (let i = 0; i < courses.length; i++) {
+            const course = await Course.findById(courses[i]);
+            enrolledCourses.push(course);
+        }
+        res.status(200).json({
+            courses: enrolledCourses
+        });
+    } catch {
+        res.status(404).json({message: "Something went wrong"});
+    }
 };
 
 exports.user_update = async (req, res, next) => {

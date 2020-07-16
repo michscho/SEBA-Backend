@@ -18,4 +18,6 @@ router.post("/updatePassword", checkAuth, UserController.user_updatePassword);
 
 router.post("/updateUserCourses", checkAuth, UserController.user_updateUserCourses);
 
+router.get("/enrolledCourses", checkAuth, UserController.user_enrolledCourses);
+
 module.exports = router;
