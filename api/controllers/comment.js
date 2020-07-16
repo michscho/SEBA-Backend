@@ -1,8 +1,11 @@
+const axios = require("axios");
 const mongoose = require("mongoose");
 const Comment = require("../models/comment");
 const User = require("../models/user");
+const Course = require("../models/course");
 
-exports.create_comment = (req, res, next) => {
+
+exports.create_comment = async (req, res, next) => {
     const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
@@ -10,21 +13,56 @@ exports.create_comment = (req, res, next) => {
         creator: req.userData.userId,
         contentId: req.body.contentId,
     });
-    comment
-        .save()
-        .then(result => {
-            console.log(result);
-            res.status(201).json({
-                message: "Created comment successfully",
-                result
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    await comment.save();
+    try {
+        const course = await Course.findById(req.body.contentId);
+        const user = await User.findById(course.creatorId);
+
+        // Token needs to be refreshed every 24 hours due to security reasons
+        const authToken = "ya29.a0AfH6SMBl2hldoPwILPaByP871QH9kAeU7HFRiVg6N5l8JpUF_NzEVPw7YLRxYTO-NesnLKS34OSIukrjYjaGqAnUBNW8Klm8kz9ESU975PDFB2hH7frVX-kJxQtoU9kUl1ama0HZOMl43N_Ci7ezVZGGUmk9w0O1iiY"
+
+        const URL= "https://fcm.googleapis.com/v1/projects/know-more-1/messages:send";
+        const data = {
+            "message": {
+                "token" : user.notificationToken,
+                "notification": {
+                    "title": "New comment on your course " + course.name,
+                    "body": comment.text
+                },
+                "webpush": {
+                    "headers": {
+                        "Urgency": "high"
+                    },
+                    "notification": {
+                        "body":
+                            comment.text,
+                            "requireInteraction": "true",
+                            "badge": "/badge-icon.png"
+                    }
+                }
+            }
+        }
+
+        const result = axios({
+            method: "post",
+            url: URL,
+            headers: { Authorization: "Bearer " + authToken },
+            data: data
         });
+
+        console.log(result);
+
+        res.status(201).json({
+            message: "Created comment & notification successfully"
+        });
+    }
+    catch {
+        res.status(201).json({
+            message: "Created comment successfully"
+        });
+    }
+
+
 };
 
 exports.comments_get_comment = async (req, res, next) => {

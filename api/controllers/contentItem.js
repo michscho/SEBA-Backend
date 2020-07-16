@@ -118,11 +118,7 @@ exports.contentItems_update_contentItem = (req, res, next) => {
         .exec()
         .then(result => {
             res.status(200).json({
-                message: "Content Item updated",
-                request: {
-                    type: "GET",
-                    url: "http://localhost:9000/contentItems/" + id
-                }
+                message: "Content Item updated"
             });
         })
         .catch(err => {
