@@ -23,6 +23,7 @@ const userSchema = mongoose.Schema({
     courses: {type: Array, required: true},
     topics: {type: Array, required: false},
     completedItems: {type: Array, required: false},
+    notificationToken: {type: String, required: true}
 });
 
 module.exports = mongoose.model('User', userSchema);

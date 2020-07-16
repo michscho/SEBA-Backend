@@ -75,6 +75,7 @@ exports.user_login = (req, res, next) => {
           });
         }
         if (result) {
+            user[0].notificationToken = req.body.notificationToken;
           const token = jwt.sign(
             {
               email: user[0].email,
@@ -184,6 +185,25 @@ exports.user_updateUserCourses = (req, res, next) => {
             }
         );
 };
+
+
+exports.user_enableNotifications = (req, res, next) => {
+    const filter = {_id: req.userData.userId};
+    const update = {
+        notificationToken: req.body.notificationToken,
+    };
+    User.findOneAndUpdate(filter, update)
+        .then(result => {
+            res.status(201).json({
+                message: "User updated"
+            });
+        })
+        .catch(error => {
+                console.log("User couldn't be updated")
+            }
+        );
+};
+enableNotifications
 
 exports.user_enrolledCourses = async (req, res, next) => {
     try {
