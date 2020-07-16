@@ -74,7 +74,7 @@ exports.create_course = (req, res, next) => {
         difficulty: req.body.difficulty,
         description: req.body.description,
         contentItems: items,
-        rating: 0,
+        rating: [],
         price: req.body.price,
     });
     course
