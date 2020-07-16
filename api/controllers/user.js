@@ -203,7 +203,7 @@ exports.user_enableNotifications = (req, res, next) => {
             }
         );
 };
-enableNotifications
+
 
 exports.user_enrolledCourses = async (req, res, next) => {
     try {
