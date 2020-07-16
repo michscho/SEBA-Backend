@@ -76,7 +76,17 @@ exports.user_login = (req, res, next) => {
           });
         }
         if (result) {
-            user[0].notificationToken = req.body.notificationToken;
+            const filter = {_id: user[0]._id};
+            const update = {
+                notificationToken: req.body.notificationToken,
+            };
+            User.findOneAndUpdate(filter, update)
+                .then(result => {
+                })
+                .catch(error => {
+                        console.log("User couldn't be updated")
+                    }
+                );
           const token = jwt.sign(
             {
               email: user[0].email,
