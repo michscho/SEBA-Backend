@@ -71,6 +71,9 @@ exports.comments_get_comment = async (req, res, next) => {
         for (let i = 0; i < comments.length; i++) {
             const user = await User.findById(comments[i].creator)
             if (user) {
+                if(req.userData.userId === comments[i].creator) {
+                    comments[i].contentId = "true";
+                }
                 comments[i].creator = user.prename + " " + user.surname;
             }
             else {
