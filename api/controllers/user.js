@@ -38,6 +38,7 @@ exports.user_signup = (req, res, next) => {
                 smsnewsletter: true,
                 smscommunityupdate: false,
                 completedItems: "",
+                notificationToken: "N/A"
             });
             user
               .save()
