@@ -22,4 +22,6 @@ router.post("/enableNotifications", checkAuth, UserController.user_enableNotific
 
 router.get("/enrolledCourses", checkAuth, UserController.user_enrolledCourses);
 
+router.get("/leaderboard", checkAuth, UserController.user_get_leaderboard);
+
 module.exports = router;

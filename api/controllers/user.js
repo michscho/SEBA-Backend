@@ -257,3 +257,29 @@ exports.user_update = async (req, res, next) => {
         console.log("Error");
     }
 };
+
+
+
+exports.user_get_leaderboard = async (req, res, next) => {
+    try {
+        const dbUsers = await User.find({privateprofile: false});
+        const leaderboard = []
+        for (let i = 0; i < dbUsers.length; i++) {
+            leaderboard.push({
+                firstname: dbUsers[i].prename,
+                lastname: dbUsers[i].surname,
+                premium: dbUsers[i].premiumUser ,
+                enrolledCourses: dbUsers[i].courses.length
+            });
+        }
+        leaderboard.sort( (a, b) => {
+            return a.enrolledCourses > b.enrolledCourses ? -1 : 1
+        });
+        res.status(200).json({
+            leaderboard: leaderboard
+        });
+    }
+    catch {
+        res.status(404).json({message: "Invalid Request"});
+    }
+};
