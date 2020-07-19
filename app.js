@@ -40,6 +40,11 @@ app.use("/courses", coursesRoutes);
 app.use("/user", userRoutes);
 app.use("/comment", commentRoutes);
 
+app.use("/",(req, res, next) => {
+  res.status(200).json({
+    message: "Backend online"
+  });
+});
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
