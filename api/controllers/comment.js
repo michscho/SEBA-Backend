@@ -19,7 +19,7 @@ exports.create_comment = async (req, res, next) => {
         const user = await User.findById(course.creatorId);
 
         // Token needs to be refreshed every 24 hours due to security reasons
-        const authToken = "ya29.a0AfH6SMA5Wh79f9u2ay_veq1OQ6MVXZX8fXaPB-uBumfM8qEWag8MiqPy_bIv7U3KZMk_KE9icSJ0P1nT8JiVIBKYAArOhKDctfNdwHx3w8en7DG27PECHti_ar5DQ1zDGrWrZsEGJuX-M8KFfK2rbvJnuAc2d3TQlB0"
+        const authToken = "ya29.a0AfH6SMD53Qnv-CA_G82I8fsTJGInOVtCiJyDcJ-0Rz-whtrYkk-b2Kbcj8oaibCV2i-MK2tIUas0evTHXP3D7D9HX67R1hufILhoBkD0WY1xAwgK8gKoZ1R104HJIe3tlwVLJZcYJ85VsHneJ6fpDe9wcyhaM4X4VbA"
 
         const URL= "https://fcm.googleapis.com/v1/projects/know-more-1/messages:send";
         const data = {
